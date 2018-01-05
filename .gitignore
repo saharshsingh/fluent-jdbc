@@ -1,0 +1,17 @@
+.DS_Store
+
+# IntelliJ files
+.idea/*
+!.idea/modules.xml
+!.idea/misc.xml
+!.idea/compiler.xml
+!.idea/runConfigurations
+*.iml
+
+# eclipse files
+.classpath
+.project
+.settings
+
+# temp work files
+target
