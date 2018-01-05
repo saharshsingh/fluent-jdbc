@@ -12,7 +12,7 @@
     <artifactId>fluent-jdbc</artifactId>
     <version>1.0-SNAPSHOT</version>
 
-    <name>SimpleMock</name>
+    <name>Fluent JDBC</name>
     <description>A simple fluent API layer on top of Spring's JdbcTemplate for better type safety</description>
     <url>https://github.com/saharshsingh/fluent-jdbc</url>
 
