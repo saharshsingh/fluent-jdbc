@@ -34,6 +34,7 @@
     <properties>
         <spring.jdbc.version>5.0.2.RELEASE</spring.jdbc.version>
         <junit.version>4.12</junit.version>
+        <h2.version>1.4.196</h2.version>
     </properties>
 
     <!-- Dependencies -->
@@ -53,6 +54,11 @@
             <version>${junit.version}</version>
             <scope>test</scope>
         </dependency>
-
+		<dependency>
+		    <groupId>com.h2database</groupId>
+		    <artifactId>h2</artifactId>
+		    <version>${h2.version}</version>
+            <scope>test</scope>
+		</dependency>
     </dependencies>
 </project>

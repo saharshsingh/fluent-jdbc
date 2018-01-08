@@ -91,7 +91,7 @@ public class Query {
      * @return new builder instance that can be used to configure a query using
      *         method chaining
      */
-    public static Query start(JdbcTemplate jdbcTemplate) {
+    public static Query withTemplate(JdbcTemplate jdbcTemplate) {
         return new Query(jdbcTemplate);
     }
 
