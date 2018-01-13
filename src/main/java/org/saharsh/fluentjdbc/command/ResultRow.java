@@ -1,10 +1,12 @@
-package org.saharsh.fluentjdbc;
+package org.saharsh.fluentjdbc.command;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
+
+import org.saharsh.fluentjdbc.builder.Column;
 
 /**
  * Encapsulates one row of the result set that's returned by the database in
@@ -37,17 +39,17 @@ public class ResultRow {
 
     /**
      * Convenience method that will cast the returned value correctly since it's
-     * known for {@link Field} instances. otherwise identical to
+     * known for {@link Column} instances. otherwise identical to
      * {@link ResultRow#get(SelectPart)}
      * 
-     * @param field
-     *            {@link Field} instance matching the result column to fetch
-     * @return value returned for specified {@link Field} instance. 'null' if
+     * @param column
+     *            {@link Column} instance matching the result column to fetch
+     * @return value returned for specified {@link Column} instance. 'null' if
      *         missing
      */
     @SuppressWarnings("unchecked")
-    public <T> T get(Field<T> field) {
-        Object result = resultColumns.get(field);
+    public <T> T get(Column<T> column) {
+        Object result = resultColumns.get(column);
         return result == null ? null : (T) result;
     }
 

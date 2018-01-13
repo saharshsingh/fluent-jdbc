@@ -1,14 +1,16 @@
-package org.saharsh.fluentjdbc;
+package org.saharsh.fluentjdbc.builder;
+
+import org.saharsh.fluentjdbc.command.SelectPart;
 
 /**
- * Represents a field or column in a database table
+ * Represents a column or column in a database table
  *
  * @author Saharsh Singh
  *
  * @param <T>
  *            - Java type that should match returned data
  */
-public class Field<T> extends SelectPart {
+public class Column<T> extends SelectPart {
 
     private final String table;
     private final String name;
@@ -21,18 +23,18 @@ public class Field<T> extends SelectPart {
      * @param type
      *            - Java type that should match returned data
      */
-    public Field(String table, String name, Class<T> type) {
+    public Column(String table, String name, Class<T> type) {
         super(table + "." + name, table + "_" + name, type);
         this.table = table;
         this.name = name;
     }
 
-    /** @return name of table this field belongs to */
+    /** @return name of table this column belongs to */
     public String getTable() {
         return table;
     }
 
-    /** @return field name */
+    /** @return column name */
     public String getName() {
         return name;
     }

@@ -1,24 +1,13 @@
-package org.saharsh.fluentjdbc;
+package org.saharsh.fluentjdbc.command;
 
 import java.math.BigDecimal;
 import java.sql.ResultSet;
+import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
-/**
- * A facade over the {@link JdbcTemplate} API to reduce even more boilerplate
- * and allow for a more fluent interface
- *
- * @author Saharsh Singh
- *
- */
-public class Query {
-
-    private final JdbcTemplate jdbcTemplate;
-    private SelectPart[] selectParts = null;
-    private String clauses = null;
-    private Object[] params = new Object[] {};
+public class Select extends JdbcCommand<List<ResultRow>> {
 
     /**
      * Register implementation for how to read certain
@@ -41,7 +30,7 @@ public class Query {
      * </ul>
      *
      * @param resultType
-     *            field type
+     *            column type
      * @param resultReader
      *            reader implementation
      */
@@ -86,70 +75,46 @@ public class Query {
         });
     }
 
-    /**
-     * @param jdbcTemplate
-     * @return new builder instance that can be used to configure a query using
-     *         method chaining
-     */
-    public static Query withTemplate(JdbcTemplate jdbcTemplate) {
-        return new Query(jdbcTemplate);
-    }
+    private final JdbcTemplate jdbcTemplate;
+    private final SelectPart[] selectParts;
+    private final String sql;
+    private final Object[] params;
 
-    /**
-     * Used to specify what the query will select from the database
-     *
-     * @param selectParts
-     *            - All parts of the intended select clause
-     * @return builder instance to allow method chaining
-     */
-    public Query thatSelects(SelectPart... selectParts) {
+    public Select(JdbcTemplate jdbcTemplate, SelectPart[] selectParts, String clauses, Object... params) {
+
+        // validate
         if (selectParts == null || selectParts.length < 1) {
             throw new IllegalArgumentException("Must query for atleast one thing");
         }
-        this.selectParts = selectParts;
-        return this;
-    }
-
-    /**
-     * Provide the clauses for the query. These clauses make up all of the query
-     * EXCEPT THE 'SELECT [list of fields]' part and includes the 'FROM [table]'
-     * clause. 'WHERE' clause should contain '?' as placeholder characters and
-     * {@link Query#givenParams(Object...)} should be used to configure
-     * them
-     *
-     * @param clauses
-     * @return builder instance to allow method chaining
-     */
-    public Query withClauses(String clauses) {
         if (clauses == null || clauses.length() < 1) {
             throw new IllegalArgumentException("Must provide at least one clause");
         }
-        this.clauses = clauses;
-        return this;
+
+        // assign
+        this.jdbcTemplate = jdbcTemplate;
+        this.selectParts = selectParts;
+        this.sql = buildSql(selectParts, clauses);
+        this.params = params;
     }
 
-    /**
-     * Provide values for each '?' placeholder in the query
-     * 
-     * @param params
-     * @return builder instance to allow method chaining
-     */
-    public Query givenParams(Object... params) {
-        this.params = params != null ? params : this.params;
-        return this;
+    @Override
+    public String toString() {
+        return "Select [sql=" + sql + ", params=" + Arrays.toString(params) + "]";
     }
 
-    /** @return Query results */
-    public List<ResultRow> execute() {
-        
-        if (selectParts == null || clauses == null) {
-            throw new IllegalStateException("Query not properly initialized. Provide necessary clauses");
-        }
+    @Override
+    protected CommandExecution<List<ResultRow>> getExecutionStrategy() {
+        return () -> {
+            return jdbcTemplate.query(sql, params, new QueryResultRowMapper(selectParts));
+        };
+    }
+
+    private String buildSql(SelectPart[] selectParts, String clauses) {
 
         // build SQL string
         StringBuilder sql = new StringBuilder("SELECT ");
 
-        // add fields to select
+        // add columns to select
         boolean notFirstPart = false;
         for (SelectPart selectPart : selectParts) {
             if (notFirstPart) {
@@ -163,12 +128,7 @@ public class Query {
         // add rest of clause
         sql.append(" ").append(clauses);
 
-        // Create and return query object
-        return jdbcTemplate.query(sql.toString(), params, new QueryResultRowMapper(selectParts));
+        return sql.toString();
     }
 
-    // intentionally private
-    private Query(JdbcTemplate jdbcTemplate) {
-        this.jdbcTemplate = jdbcTemplate;
-    }
 }

@@ -1,4 +1,4 @@
-package org.saharsh.fluentjdbc;
+package org.saharsh.fluentjdbc.command;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;

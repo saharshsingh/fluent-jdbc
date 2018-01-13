@@ -1,4 +1,4 @@
-package org.saharsh.fluentjdbc;
+package org.saharsh.fluentjdbc.command;
 
 /**
  * Encapsulates a specific part of the select clause that denotes a specific
@@ -17,7 +17,7 @@ public class SelectPart {
      *
      * @param selectExpression
      *            part of select part that tells the database what to query
-     *            (e.g. exact field names, operations on a set of fields, etc)
+     *            (e.g. exact column names, operations on a set of columns, etc)
      * @param asLabel
      *            what the returned result column matching this select part
      *            should be labeled or aliased as
@@ -36,7 +36,7 @@ public class SelectPart {
 
     /**
      * @return part of select part that tells the database what to query (e.g.
-     *         exact field names, operations on a set of fields, etc)
+     *         exact column names, operations on a set of columns, etc)
      */
     public String getSelectExpression() {
         return selectExpression;
