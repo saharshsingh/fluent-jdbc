@@ -10,7 +10,7 @@ import org.saharsh.fluentjdbc.command.SelectPart;
  * @param <T>
  *            - Java type that should match returned data
  */
-public class Column<T> extends SelectPart {
+public class Column<T> extends SelectPart<T> {
 
     private final String table;
     private final String name;
@@ -37,11 +37,6 @@ public class Column<T> extends SelectPart {
     /** @return column name */
     public String getName() {
         return name;
-    }
-
-    /** @return table.name */
-    public String getQName() {
-        return getSelectExpression();
     }
 
 }

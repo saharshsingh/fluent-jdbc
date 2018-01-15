@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * @author Saharsh Singh
  */
 @FunctionalInterface
-public interface ResultReader {
+public interface ResultReader<T> {
 
     /**
      * Implements how to read a raw {@link ResultSet} instance that maps to the
@@ -22,6 +22,6 @@ public interface ResultReader {
      *         instance
      * @throws SQLException
      */
-    Object read(SelectPart selectPart, ResultSet resultSet) throws SQLException;
+    T read(SelectPart<T> selectPart, ResultSet resultSet) throws SQLException;
 
 }

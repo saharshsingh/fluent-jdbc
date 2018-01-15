@@ -6,7 +6,7 @@ import org.springframework.jdbc.core.JdbcTemplate;
 
 public class SelectBuilder extends Builder<Select> {
 
-    private SelectPart[] selectParts;
+    private SelectPart<?>[] selectParts;
 
     public SelectBuilder(JdbcTemplate jdbcTemplate) {
         super(jdbcTemplate);
@@ -19,7 +19,7 @@ public class SelectBuilder extends Builder<Select> {
      *            - All parts of the intended select clause
      * @return builder instance to allow method chaining
      */
-    public SelectBuilder select(SelectPart... selectParts) {
+    public SelectBuilder select(SelectPart<?>... selectParts) {
         this.selectParts = selectParts;
         return this;
     }

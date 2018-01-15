@@ -34,7 +34,7 @@ public class Select extends JdbcCommand<List<ResultRow>> {
      * @param resultReader
      *            reader implementation
      */
-    public static void registerResultReader(Class<?> resultType, ResultReader resultReader) {
+    public static <T> void registerResultReader(Class<T> resultType, ResultReader<T> resultReader) {
         QueryResultRowMapper.registerReader(resultType, resultReader);
     }
 
@@ -76,11 +76,11 @@ public class Select extends JdbcCommand<List<ResultRow>> {
     }
 
     private final JdbcTemplate jdbcTemplate;
-    private final SelectPart[] selectParts;
+    private final SelectPart<?>[] selectParts;
     private final String sql;
     private final Object[] params;
 
-    public Select(JdbcTemplate jdbcTemplate, SelectPart[] selectParts, String clauses, Object... params) {
+    public Select(JdbcTemplate jdbcTemplate, SelectPart<?>[] selectParts, String clauses, Object... params) {
 
         // validate
         if (selectParts == null || selectParts.length < 1) {
@@ -109,14 +109,14 @@ public class Select extends JdbcCommand<List<ResultRow>> {
         };
     }
 
-    private String buildSql(SelectPart[] selectParts, String clauses) {
+    private String buildSql(SelectPart<?>[] selectParts, String clauses) {
 
         // build SQL string
         StringBuilder sql = new StringBuilder("SELECT ");
 
         // add columns to select
         boolean notFirstPart = false;
-        for (SelectPart selectPart : selectParts) {
+        for (SelectPart<?> selectPart : selectParts) {
             if (notFirstPart) {
                 sql.append(", ");
             }

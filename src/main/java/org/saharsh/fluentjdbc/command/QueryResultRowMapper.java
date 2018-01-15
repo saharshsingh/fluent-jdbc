@@ -12,23 +12,25 @@ import org.springframework.jdbc.core.RowMapper;
 // intentionally package private
 final class QueryResultRowMapper implements RowMapper<ResultRow> {
 
-    private static final Map<Class<?>, ResultReader> READERS = new HashMap<>();
+    @SuppressWarnings("rawtypes")
+    private static final Map<Class, ResultReader> READERS = new HashMap<>();
 
-    static void registerReader(Class<?> type, ResultReader reader) {
+    static <T> void registerReader(Class<T> type, ResultReader<T> reader) {
         READERS.put(type, reader);
     }
 
-    private final List<SelectPart> expectedParts = new ArrayList<>();
+    private final List<SelectPart<?>> expectedParts = new ArrayList<>();
 
-    QueryResultRowMapper(SelectPart... parts) {
+    QueryResultRowMapper(SelectPart<?>... parts) {
         if (parts == null || parts.length < 1) {
             throw new IllegalArgumentException("No select parts identified");
         }
-        for (SelectPart part : parts) {
+        for (SelectPart<?> part : parts) {
             expectedParts.add(part);
         }
     }
 
+    @SuppressWarnings({ "unchecked", "rawtypes" })
     @Override
     public ResultRow mapRow(ResultSet resultSet, int index) throws SQLException {
         ResultRow row = new ResultRow();

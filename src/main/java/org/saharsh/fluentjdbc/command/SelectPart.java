@@ -6,11 +6,11 @@ package org.saharsh.fluentjdbc.command;
  *
  * @author Saharsh Singh
  */
-public class SelectPart {
+public class SelectPart<T> {
 
     private final String selectExpression;
     private final String asLabel;
-    private final Class<?> expectedType;
+    private final Class<T> expectedType;
 
     /**
      * Constructor
@@ -25,7 +25,7 @@ public class SelectPart {
      *            The Java type that matches the database type for the value
      *            returned
      */
-    public SelectPart(String selectExpression, String asLabel, Class<?> expectedType) {
+    public SelectPart(String selectExpression, String asLabel, Class<T> expectedType) {
         if (selectExpression == null || asLabel == null || expectedType == null) {
             throw new IllegalArgumentException("Only non-null args accepted");
         }
@@ -67,9 +67,9 @@ public class SelectPart {
     public int hashCode() {
         final int prime = 31;
         int result = 1;
-        result = prime * result + ((asLabel == null) ? 0 : asLabel.hashCode());
-        result = prime * result + ((expectedType == null) ? 0 : expectedType.hashCode());
-        result = prime * result + ((selectExpression == null) ? 0 : selectExpression.hashCode());
+        result = prime * result + asLabel.hashCode();
+        result = prime * result + expectedType.hashCode();
+        result = prime * result + selectExpression.hashCode();
         return result;
     }
 
@@ -81,21 +81,12 @@ public class SelectPart {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        SelectPart other = (SelectPart) obj;
-        if (asLabel == null) {
-            if (other.asLabel != null)
-                return false;
-        } else if (!asLabel.equals(other.asLabel))
+        SelectPart<?> other = (SelectPart<?>) obj;
+        if (!selectExpression.equals(other.selectExpression))
             return false;
-        if (expectedType == null) {
-            if (other.expectedType != null)
-                return false;
-        } else if (!expectedType.equals(other.expectedType))
+        if (!asLabel.equals(other.asLabel))
             return false;
-        if (selectExpression == null) {
-            if (other.selectExpression != null)
-                return false;
-        } else if (!selectExpression.equals(other.selectExpression))
+        if (!expectedType.equals(other.expectedType))
             return false;
         return true;
     }
