@@ -1,19 +1,34 @@
 package org.saharsh.fluentjdbc.builder;
 
+/**
+ * Encapsulates a value assignment to a database table column
+ *
+ * @author Saharsh Singh
+ *
+ * @param <T>
+ */
 public class ColumnValue<T> {
 
     private final Column<T> column;
     private final T value;
 
+    /**
+     * Constructor
+     *
+     * @param column
+     * @param value
+     */
     public ColumnValue(Column<T> column, T value) {
         this.column = column;
         this.value = value;
     }
 
+    /** @return {@link Column} instance */
     public Column<T> getColumn() {
         return column;
     }
 
+    /** @return value being assigned to column */
     public T getValue() {
         return value;
     }

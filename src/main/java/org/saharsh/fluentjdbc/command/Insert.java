@@ -2,15 +2,36 @@ package org.saharsh.fluentjdbc.command;
 
 import java.util.Arrays;
 
+import org.saharsh.fluentjdbc.builder.Column;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
+/**
+ * Encapsulates the 'INSERT' SQL command
+ *
+ * @author Saharsh Singh
+ */
 public class Insert extends DmlCommand {
 
     private final JdbcTemplate template;
     private final String sql;
     private final Object[] params;
 
+    /**
+     * Constructor
+     *
+     * @param jdbcTemplate
+     *            JDBC Template instance that will be used to run the command
+     * @param table
+     *            database table to delete from
+     * @param columns
+     *            {@link Column} instances included in the command. All must
+     *            belong to the same database table
+     * @param columnParams
+     *            values for each of the columns specified in the command. Must
+     *            be specified in same order as the columns they need to match
+     *            up against
+     */
     public Insert(JdbcTemplate jdbcTemplate, String table, String[] columns, Object[] columnParams) {
 
         // validate

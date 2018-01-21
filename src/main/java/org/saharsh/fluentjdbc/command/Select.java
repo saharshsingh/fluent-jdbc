@@ -7,6 +7,11 @@ import java.util.List;
 
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * Encapsulates a 'SELECT' command
+ *
+ * @author Saharsh Singh
+ */
 public class Select extends JdbcCommand<List<ResultRow>> {
 
     /**
@@ -80,6 +85,21 @@ public class Select extends JdbcCommand<List<ResultRow>> {
     private final String sql;
     private final Object[] params;
 
+    /**
+     * Constructor
+     *
+     * @param jdbcTemplate
+     *            JDBC Template instance that will be used to run the command
+     * @param selectParts
+     *            instances of {@link SelectPart} that define query result
+     *            columns
+     * @param clauses
+     *            make up all of the query EXCEPT THE 'SELECT [list of fields]'
+     *            part and includes the 'FROM [table]' clause. 'WHERE' clause
+     *            should be parameterized
+     * @param params
+     *            values of the parameters specified in the clauses
+     */
     public Select(JdbcTemplate jdbcTemplate, SelectPart<?>[] selectParts, String clauses, Object... params) {
 
         // validate

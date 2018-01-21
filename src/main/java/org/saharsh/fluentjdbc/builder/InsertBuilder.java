@@ -6,14 +6,33 @@ import java.util.List;
 import org.saharsh.fluentjdbc.command.Insert;
 import org.springframework.jdbc.core.JdbcTemplate;
 
+/**
+ * Builder for {@link Insert} commands
+ *
+ * @author Saharsh Singh
+ */
 public class InsertBuilder extends Builder<Insert> {
 
     private List<ColumnValue<?>> columnValues = new ArrayList<>();
 
+    /**
+     * Constructor
+     *
+     * @param template
+     *            JDBC Template instance that will be used to run the command
+     */
     public InsertBuilder(JdbcTemplate template) {
         super(template);
     }
 
+    /**
+     * Provide multiple column=value pairs to be included in the command.
+     * <p>
+     * NOTE: This method overwrites any mappings that were provided previously
+     *
+     * @param assignments
+     * @return instance of this builder to allow method chaining
+     */
     public InsertBuilder insert(ColumnValue<?>... assignments) {
         columnValues = new ArrayList<>();
         for (ColumnValue<?> assignment : assignments) {
@@ -22,16 +41,25 @@ public class InsertBuilder extends Builder<Insert> {
         return this;
     }
 
+    /**
+     * Provide another column-value pair to be included in this command
+     *
+     * @param column
+     * @param value
+     * @return instance of this builder to allow method chaining
+     */
     public <T> InsertBuilder and(Column<T> column, T value) {
         columnValues.add(new ColumnValue<T>(column, value));
         return this;
     }
 
+    /** This operation is not supported for this builder */
     @Override
     public InsertBuilder withClauses(String clauses) {
         throw new UnsupportedOperationException("Not supported for insert");
     }
 
+    /** This operation is not supported for this builder */
     @Override
     public Builder<Insert> givenClauseParams(Object... clauseParams) {
         throw new UnsupportedOperationException("Not supported for insert");

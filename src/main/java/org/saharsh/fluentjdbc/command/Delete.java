@@ -5,12 +5,30 @@ import java.util.Arrays;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.util.StringUtils;
 
+/**
+ * Encapsulates the 'DELETE' SQL command
+ *
+ * @author Saharsh Singh
+ */
 public class Delete extends DmlCommand {
 
     private final JdbcTemplate template;
     private final String sql;
     private final Object[] params;
 
+    /**
+     * Constructor
+     *
+     * @param jdbcTemplate
+     *            JDBC Template instance that will be used to run the command
+     * @param table
+     *            database table to delete from
+     * @param clauses
+     *            parametrized clauses appended to the delete command. These
+     *            come after the 'DELETE FROM [TABLE]' part of the command
+     * @param clauseParams
+     *            values of the parameters specified in the clauses
+     */
     public Delete(JdbcTemplate jdbcTemplate, String table, String clauses, Object[] clauseParams) {
 
         // validate
