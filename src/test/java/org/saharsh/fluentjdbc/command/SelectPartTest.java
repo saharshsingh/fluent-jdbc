@@ -1,5 +1,6 @@
 package org.saharsh.fluentjdbc.command;
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -14,19 +15,35 @@ public class SelectPartTest {
             new SelectPart<>(null, "ASLabel", String.class);
             Assert.fail("Should've thrown exception");
         } catch (IllegalArgumentException e) {
-            // expected
+            Assert.assertEquals("Only non-null args accepted", e.getMessage());
         }
         try {
             new SelectPart<>("SelectExpr", null, String.class);
             Assert.fail("Should've thrown exception");
         } catch (IllegalArgumentException e) {
-            // expected
+            Assert.assertEquals("Only non-null args accepted", e.getMessage());
         }
         try {
             new SelectPart<>("SelectExpr", "ASLabel", null);
             Assert.fail("Should've thrown exception");
         } catch (IllegalArgumentException e) {
-            // expected
+            Assert.assertEquals("Only non-null args accepted", e.getMessage());
+        }
+    }
+
+    @Test
+    public void test_constructor_to_reject_return_type_without_reader() {
+        try {
+            new SelectPart<>("SelectExpr", "ASLabel", Date.class);
+            Assert.fail("Should've thrown exception");
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals("No reader implementation found/provided for " + Date.class, e.getMessage());
+        }
+        try {
+            new SelectPart<>("SelectExpr", "ASLabel", Date.class, null);
+            Assert.fail("Should've thrown exception");
+        } catch (IllegalArgumentException e) {
+            Assert.assertEquals("No reader implementation found/provided for " + Date.class, e.getMessage());
         }
     }
 

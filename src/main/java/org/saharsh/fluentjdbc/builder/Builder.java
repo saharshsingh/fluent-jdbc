@@ -48,7 +48,7 @@ public abstract class Builder<T extends JdbcCommand<?>> {
      * @return instance of this builder to allow method chaining
      */
     public Builder<T> givenClauseParams(Object... clauseParams) {
-        this.clauseParams = clauseParams != null ? clauseParams : this.clauseParams;
+        this.clauseParams = clauseParams;
         return this;
     }
 

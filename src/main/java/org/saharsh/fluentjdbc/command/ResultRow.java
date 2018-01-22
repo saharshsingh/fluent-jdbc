@@ -18,7 +18,7 @@ public class ResultRow {
 
     // intentionally package private
     void addColumn(SelectPart<?> selectPart, Object result) {
-        if (!selectPart.getExpectedType().isInstance(result)) {
+        if (result != null && !selectPart.getExpectedType().isInstance(result)) {
             throw new RuntimeException("Result type does not match select part");
         }
         resultColumns.put(selectPart, result);

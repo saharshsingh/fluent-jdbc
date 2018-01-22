@@ -68,4 +68,11 @@ public class ColumnValueTest {
         Assert.assertTrue(new ColumnValue<String>(sameColumn1, null).equals(nullValue));
     }
 
+    @Test
+    public void test_toString() {
+        ColumnValue<String> colVal = new ColumnValue<>(new Column<>("table", "column", String.class), "value");
+        Assert.assertTrue(colVal.toString().contains(colVal.getColumn().toString()));
+        Assert.assertTrue(colVal.toString().contains(colVal.getValue().toString()));
+    }
+
 }

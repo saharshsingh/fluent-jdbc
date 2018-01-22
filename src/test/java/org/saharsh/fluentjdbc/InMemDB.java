@@ -28,17 +28,19 @@ public class InMemDB {
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS STUDENT ( " +
                 "ID CHAR(36), " +
                 "NAME VARCHAR(255) NOT NULL, " +
-                "AGE INTEGER NOT NULL, " +
+                "AGE INTEGER, " +
                 "PRIMARY KEY (ID) )");
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS CLASS ( " +
                 "ID CHAR(36), " +
                 "NAME VARCHAR(255) NOT NULL, " +
                 "TEACHER VARCHAR(255) NOT NULL, " +
-                "ACTIVE BOOLEAN NOT NULL DEFAULT FALSE, " +
+                "ACTIVE BOOLEAN DEFAULT FALSE, " +
+                "AVERAGE_GRADE DECIMAL, " +
                 "PRIMARY KEY (ID) )");
         jdbcTemplate.execute("CREATE TABLE IF NOT EXISTS GRADE ( " +
                 "ID CHAR(36), " +
                 "GRADE DECIMAL NOT NULL, " +
+                "DATE_CREATED TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP, " +
                 "CLASS_ID CHAR(36) NOT NULL, " +
                 "STUDENT_ID CHAR(36) NOT NULL, " +
                 "PRIMARY KEY (ID), " +
