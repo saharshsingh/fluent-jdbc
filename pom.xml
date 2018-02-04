@@ -10,7 +10,7 @@
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.saharsh</groupId>
     <artifactId>fluent-jdbc</artifactId>
-    <version>1.0</version>
+    <version>1.1-SNAPSHOT</version>
 
     <name>Fluent JDBC</name>
     <description>A simple fluent API layer on top of Spring's JdbcTemplate for better type safety</description>
@@ -20,7 +20,7 @@
         <url>https://github.com/saharshsingh/fluent-jdbc</url>
         <connection>scm:git:git://github.com/saharshsingh/fluent-jdbc.git</connection>
         <developerConnection>scm:git:git@github.com:saharshsingh/fluent-jdbc.git</developerConnection>
-        <tag>fluent-jdbc-1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
