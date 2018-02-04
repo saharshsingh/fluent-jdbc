@@ -74,7 +74,7 @@ public class Insert extends DmlCommand {
     private String buildSql(String table, String[] columns) {
         StringBuilder sql = new StringBuilder("INSERT INTO ").append(table).append(" (");
 
-        StringBuilder valuesPart = new StringBuilder(" VALUES (");
+        StringBuilder valuesPart = new StringBuilder("VALUES (");
         boolean notFirstColumn = false;
         for (String column : columns) {
             if (notFirstColumn) {

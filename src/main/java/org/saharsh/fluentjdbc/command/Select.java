@@ -39,7 +39,7 @@ public class Select extends JdbcCommand<List<ResultRow>> {
             throw new IllegalArgumentException("Must query for atleast one thing");
         }
         if (clauses == null || clauses.length() < 1) {
-            throw new IllegalArgumentException("Must provide at least one clause");
+            throw new IllegalArgumentException("Must provide nonempty clause");
         }
 
         // assign
