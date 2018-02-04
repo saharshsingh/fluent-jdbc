@@ -1,4 +1,6 @@
 # Fluent JDBC
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/org.saharsh/fluent-jdbc/badge.svg)](https://maven-badges.herokuapp.com/maven-central/org.saharsh/fluent-jdbc/)
+[![Javadoc](http://javadoc-badge.appspot.com/org.saharsh/fluent-jdbc.svg)](http://www.javadoc.io/doc/org.saharsh/fluent-jdbc)
 
 ## Why?
 
